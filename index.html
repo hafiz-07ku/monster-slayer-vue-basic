@@ -33,16 +33,20 @@
 			<p>Game Over! Status:{{ winner }}</p>
 			<button @click="startNewGame">New Game</button>
 		</section>
-		<section id="controls">
+		<section id="controls" v-else>
 			<button @click="playerAtack">ATTACK</button>
 			<button @click="specialAtack" :disabled="specialAtackAvailable">SPECIAL ATTACK</button>
 			<button @click="healplayer">HEAL</button>
-			<button>SURRENDER</button>
+			<button @click="surrender">SURRENDER</button>
 		</section>
 		<section id="log" class="container">
 			<h2>Battle Log</h2>
 			<h2>{{winner}}</h2>
-			<ul></ul>
+			<ul v-if="logMessages.length > 0">
+				<li v-for="logMessage in logMessages">
+					<span :class="'log--' + logMessage.actionBy">{{ logMessage.actionBy.charAt(0).toUpperCase() + logMessage.actionBy.slice(1) }} {{logMessage.actionType}}s by {{logMessage.actionValue}}</span>
+				</li>
+			</ul>
 		</section>
 	</div>
 </body>
